@@ -1,0 +1,20 @@
+{
+    "errors": [
+        {
+            "Claim Number": "166436",
+            "validation errors":  [
+                "Claim Number: 166436",
+                "The patient is referred by another facility but the referring health facility is not declared.",
+                "Health Facility not Accredited for confinement outside accreditation period."
+            ]
+        },
+        {
+            "Claim Number": "166436",
+            "validation errors":  [
+                "Claim Number: 166436",
+                "The patient is referred by another facility but the referring health facility is not declared.",
+                "Health Facility not Accredited for confinement outside accreditation period."
+            ]
+        }
+    ]
+}

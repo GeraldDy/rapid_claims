@@ -1,0 +1,272 @@
+       
+                
+                
+//                String rvs = caseRate.optString("pRVSCode");
+//                
+//                
+//                
+//                
+//                
+//                
+//                
+//                RapidResult hciResult = ipasUpfrontValidation.getHciNoByPmccAndAdmissionDate(datasource, pHospitalCode, pAdmissionDate);
+//                RapidResult hciClassResult = ipasUpfrontValidation.getIpasHciClass(datasource, hciResult.getHciNo() , pAdmissionDate);
+//                String hci_class_result = hciClassResult.getHciClass();
+//                RapidResult classCode = ipasUpfrontValidation.getHciClassCode(datasource, hci_class_result);
+//                
+//                
+//                
+//                if (i == 0){
+//                    //ICD firstcase rate validation
+//                    if (!icd.isEmpty() && !code.isEmpty()){
+//                        logger.info("First_caserate: "+ icd);
+//                        fst_cr_icd = icd;
+//                        fst_cr_acr_gr = code;
+//                        
+//                        
+//                        
+//                        //LOS
+//                        int length_of_stay = ConfinementPeriod(pAdmissionDate, pAdmissionTime, pDischargeDate, pDischargeTime);
+//                        RapidResult req_los = ucpsUpfrontValidation.getLenghtOfStayIcd(datasource, icd, code);
+//                        if (length_of_stay < req_los.getLenghtOfStay()){
+//                            messages.add("Lenght of stay does not meet the required minimum for the specified case rate: " + code + " icd_code: " + icd);
+//                        }
+//
+//                        //8 icd gender
+//                        RapidResult req_gender = ucpsUpfrontValidation.getIcdGender(datasource, icd, code);
+//                        if (!req_gender.getIcdGender().equals("B") && !req_gender.getIcdGender().equals(pPatientSex) ){
+//                            messages.add("Invalid gender for ICD firstcase rate"); 
+//                        }
+//
+//                        //9 icd age
+//                        RapidResult req_age = ucpsUpfrontValidation.getIcdAge(datasource, icd, code);
+//                        int pAge = computePatientAge(pAdmissionDate, pPatientBirthDate);
+//                        
+//                        
+//                        if (!req_age.getIcdAge().equals("N/A") ){
+//                            if (!evaluateAgeCondition(pAge, req_age.getIcdAge())) {
+//                                messages.add("Invalid age for medical ICD first case rate");
+//                            }
+//                        }
+//                       
+//                        
+//                        RapidResult checkFacilityIcd= ucpsUpfrontValidation.chkFacilityIcd(datasource, code, icd , classCode.getValidationColumn() );
+//                        if(!checkFacilityIcd.getAllowedHealthFacility()){
+//                            messages.add("Invalid medical ICD case rate for health facility level");
+//                        }
+//                        
+//                    }
+//                    //first case rate for RVS
+//                    else if (!rvs.isEmpty() && !code.isEmpty()){
+//                        // rvs validation here
+//                        fst_cr_rvs= rvs;
+//                        fst_cr_rvs_gr= code;
+//                        
+//                        
+//                        
+//                        RapidResult rvs_validation = ucpsUpfrontValidation.RvsValidation(datasource, rvs, code);
+//                        logger.info("lateralit: "  + rvs_validation.getRvsLaterality());
+//                        logger.info("age: "  + rvs_validation.getRvsAge());
+//                        logger.info("gender: "  + rvs_validation.getRvsGender());
+//                        logger.info("LOS: "+ rvs_validation.getRvsLos());
+//                        
+//                        //age 
+//                        if (!rvs_validation.getRvsAge().equals("") && !rvs_validation.getRvsAge().equals("N/A")){
+//                            //validate patient birthdate on admissiondate
+//                              int pAge = computePatientAge(pAdmissionDate, pPatientBirthDate);
+//                              if (!evaluateAgeCondition(pAge, rvs_validation.getRvsAge())) {
+//                                messages.add("Invalid AGE for  Procedure First Case Rate");
+//                            }
+//                        }
+//                        //LOS
+//                        if(rvs_validation.getRvsLos() != null){
+//                            int length_of_stay = ConfinementPeriod(pAdmissionDate, pAdmissionTime, pDischargeDate, pDischargeTime);
+//                            if (length_of_stay < rvs_validation.getRvsLos()){
+//                                messages.add("Length of stay does not meet the required minimum for the specified case rate");
+//                            }
+//                        }
+//                        //GENDER
+//                        if (!rvs_validation.getRvsGender().equals("B") && !rvs_validation.getRvsGender().equals(pPatientSex) ){
+//                            messages.add("Invalid gender RVS firstcase rate"); 
+//                        }
+//                        //laterality
+//                        if(rvs_validation.getRvsLaterality().equals("T")){
+//                            laterality = true;
+//                        }
+//                    }
+//                }
+//                //second case rate
+//                if (i == 1){
+//                    logger.info("validate 2nd case rate");
+//                    if(code.isEmpty() && icd.isEmpty()){
+//                        messages.add("Medical ICD for second case rate is not found."); 
+//                    }
+//                    
+//                    else if (!code.isEmpty() && !icd.isEmpty()){
+//                        scd_cr_icd    = icd;
+//                        scd_cr_acr_gr = code;
+//                        
+//                        
+//                        RapidResult checkFacilityScr = ucpsUpfrontValidation.chkFacilityIcd(datasource, code, icd , classCode.getValidationColumn() );
+//                        if(!checkFacilityScr.getAllowedHealthFacility()){
+//                            messages.add("Invalid second case rate medical icd for health facility level");
+//                        }
+//                    }
+//                    
+//                    if(rvs.isEmpty() && code.isEmpty()){
+//                        messages.add("Medical RVS for second case rate is not found.");
+//                    }
+//                    else if (!rvs.isEmpty() && !code.isEmpty()){
+//                        // rvs validation here
+//                        scd_cr_rvs    = rvs;
+//                        scd_cr_rvs_gr = code;
+//                    }
+//                }
+            }
+
+
+
+
+
+
+        //     JSONArray dischargeArray = (JSONArray) dischargeObj;
+        //     if(dischargeArray.length() > 0){
+        //         for(int i = 0; i < dischargeArray.length() ; i++){
+        //             JSONObject dischargeEntry = dischargeArray.getJSONObject(i);
+        //             if(dischargeEntry.has("RVSCODES")){
+        //                 logger.info("RVSCODES OBJECTS");
+        //                 Object rvsCodesObj = dischargeEntry.get("RVSCODES");
+        //                 if (rvsCodesObj instanceof JSONArray) {
+        //                     JSONArray rvsCodes = (JSONArray) rvsCodesObj;
+        //                     for (int j = 0; j < rvsCodes.length(); j++) {
+        //                         JSONObject rvsCodeObj = rvsCodes.getJSONObject(j);
+        //                         if (rvsCodeObj.has("pRVSCode")) {
+        //                             String pRVSCode = rvsCodeObj.optString("pRVSCode");
+        //                         }
+                                
+        //                         if(rvsCodeObj.has("pLaterality")){
+                                   
+        //                             String platerality = rvsCodeObj.optString("pLaterality");
+        //                             if(laterality == true && platerality.equals("N")){
+        //                                 messages.add("Missing laterality information for the specified procedure first case rate.");
+        //                             }
+        //                         }
+        //                     }
+        //                 } else if (rvsCodesObj instanceof JSONObject) {
+        //                     JSONObject rvsCodeObj = (JSONObject) rvsCodesObj;
+        //                     logger.info("RVSCODES JSON OBJECT");
+        //                     if (rvsCodeObj.has("pRVSCode")) {
+        //                         String pRVSCode = rvsCodeObj.optString("pRVSCode");
+        //                     }
+        //                     if(rvsCodeObj.has("pLaterality")){
+        //                         String platerality = rvsCodeObj.optString("pLaterality");
+        //                         if(laterality == true && platerality.equals("N")){
+        //                             messages.add("Missing laterality information for the specified procedure first case rate.");
+        //                         }
+        //                     }
+        //                 } 
+        //                 else { //single rvscode 
+        //                     logger.info("RVSCODES is neither JSONArray nor JSONObject in entry index " + i);
+        //                 }
+
+        //             }
+        //             if(dischargeEntry.has("ICDCODE")){
+        //                 logger.info("ICDCODE OBJECTS");
+        //                 Object icdCodesOJB = dischargeEntry.get("ICDCODE");
+
+        //                 if(icdCodesOJB instanceof JSONArray){
+        //                      logger.info("ICDCODES JSONARRAY");
+        //                      JSONArray icdCodes = (JSONArray) icdCodesOJB;
+        //                      for (int c = 0; c < icdCodes.length(); c++ ){
+        //                          JSONObject icdObj = icdCodes.getJSONObject(c);
+                                 
+        //                          if( icdObj.has("pICDCode")){
+        //                             String icd_code = icdObj.optString("pICDCode");
+        //                             //allcaserate index 0 (firstcase rate) == diagnosis->discharge[0]->icdcode[0]
+        //                             if(i == 0 && c == 0){
+        //                                 if(!icd_code.equals(fst_cr_icd)){
+        //                                     messages.add("Missing ICD code for the first case rate in discharge diagnosis"); 
+        //                                 }  
+        //                             }
+        //                          }
+        //                      }
+        //                  }
+        //                 else if (icdCodesOJB instanceof JSONObject){
+        //                     JSONObject icdCode = (JSONObject) icdCodesOJB;
+        //                     logger.info("ICD CODE DISCHARGE OBJECTS");
+        //                     if( icdCode.has("pICDCode")){
+        //                        String icd_code = icdCode.optString("pICDCode");
+        //                         if(i == 0){
+        //                         // first_case_rate on discharge diagnosis
+        //                             if(!icd_code.equals(fst_cr_icd)){
+        //                              messages.add("Missing ICD code for the first case rate in discharge diagnosis"); 
+        //                             }
+        //                         }
+        //                     }
+        //                 }
+        //             }
+        //         }
+        //     }
+        // }
+        // else if (dischargeObj instanceof JSONObject){
+        //     JSONObject discharge_Object = (JSONObject) dischargeObj;
+            
+        //     if(discharge_Object.length() > 0 ){
+        //         //CHECKING IF HAS ICDCODE INSIDE OF DISCHARGE DIAGNOSIS
+        //         if(discharge_Object.has("ICDCODE")){
+        //             Object icdCodesOJB = discharge_Object.get("ICDCODE");
+        //             //check if array
+        //             if(icdCodesOJB instanceof JSONArray){
+        //                 JSONArray icdCodes = (JSONArray) icdCodesOJB;
+        //                 for(int icd = 0 ; icd < icdCodes.length(); icd++){
+        //                     JSONObject icdObj = icdCodes.getJSONObject(icd);
+        //                     String icd_code = icdObj.optString("pICDCode");
+        //                     if(icd == 0 ){
+        //                         if(!icd_code.equals(fst_cr_icd)){
+        //                             messages.add("Missing ICD code for the first case rate in discharge diagnosis");
+        //                         }
+        //                     }
+        //                 }
+        //             }
+        //             else if (icdCodesOJB instanceof JSONObject){
+        //                 JSONObject icdCodes = (JSONObject) icdCodesOJB;
+        //                 if(icdCodes.has("pICDCode")){
+        //                     String icd_code = icdCodes.optString("pICDCode");
+        //                     if(!icd_code.equals(fst_cr_icd)){
+        //                         messages.add("Missing ICD code for the first case rate in discharge diagnosis");
+        //                     }
+        //                 }
+        //             }
+        //         }
+        //         if (discharge_Object.has("RVSCODES")){
+        //             Object rvsCodeObject = discharge_Object.get("RVSCODES");
+        //             if(rvsCodeObject instanceof JSONArray){
+        //                 JSONArray rvsCodesArr = (JSONArray) rvsCodeObject;
+        //                 for(int rvs = 0 ; rvs < rvsCodesArr.length(); rvs++){
+        //                     JSONObject rvs_code = rvsCodesArr.getJSONObject(rvs);
+        //                     String rvsCode = rvs_code.optString("pRVSCode");
+        //                     if(rvs == 0 ){
+        //                         if(!rvsCode.equals(fst_cr_rvs)){
+        //                             messages.add("Missing RVS code for the first case rate in discharge diagnosis");
+        //                         }
+                                
+                                
+        //                     }
+        //                 } 
+        //             }
+        //             else if(rvsCodeObject instanceof JSONObject) {
+        //                 JSONObject rvsObjects = (JSONObject) rvsCodeObject;
+        //                 if(rvsObjects.has("pRVSCode")){
+        //                     String pRVScode = rvsObjects.optString("pRVSCode");
+                            
+        //                     if(!pRVScode.equals(fst_cr_rvs)){
+        //                         messages.add("Missing RVS code for the first case rate in discharge diagnosis");
+        //                     }
+        //                 }
+        //             }
+        //         }
+        //     }
+        //     else{
+        //         messages.add("Missing primary or secondary discharge diagnosis.");
+        //     }
+        // }
